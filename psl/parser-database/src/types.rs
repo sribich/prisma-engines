@@ -1423,7 +1423,7 @@ impl ScalarType {
         matches!(self, ScalarType::Bytes)
     }
 
-    pub(crate) fn try_from_str(s: &str) -> Option<ScalarType> {
+    pub fn try_from_str(s: &str) -> Option<ScalarType> {
         match s {
             "Int" => Some(ScalarType::Int),
             "BigInt" => Some(ScalarType::BigInt),
