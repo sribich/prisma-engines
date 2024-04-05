@@ -26,7 +26,7 @@ use tracing_futures::Instrument;
 /// `connectors`. Each connector has its own async task, and communicates with the core through
 /// channels. That ensures that each connector is handling requests one at a time to avoid
 /// synchronization issues. You can think of it in terms of the actor model.
-pub(crate) struct EngineState {
+pub struct EngineState {
     initial_datamodel: Option<psl::ValidatedSchema>,
     host: Arc<dyn ConnectorHost>,
     // A map from either:
@@ -69,10 +69,7 @@ type ErasedConnectorRequest = Box<
 >;
 
 impl EngineState {
-    pub(crate) fn new(
-        initial_datamodels: Option<Vec<(String, SourceFile)>>,
-        host: Option<Arc<dyn ConnectorHost>>,
-    ) -> Self {
+    pub fn new(initial_datamodel: Option<Vec<(String, SourceFile)>>, host: Option<Arc<dyn ConnectorHost>>) -> Self {
         EngineState {
             initial_datamodel: initial_datamodels.as_deref().map(psl::validate_multi_file),
             host: host.unwrap_or_else(|| Arc::new(schema_connector::EmptyHost)),
@@ -90,7 +87,18 @@ impl EngineState {
             })
     }
 
-    async fn with_connector_for_schema<O: Send + 'static>(
+    pub async fn with_connector_from_schema_path<O: Send + 'static>(
+        &self,
+        path: &str,
+        f: ConnectorRequest<O>,
+    ) -> CoreResult<O> {
+        let config_dir = std::path::Path::new(path).parent();
+        let schema = std::fs::read_to_string(path)
+            .map_err(|err| ConnectorError::from_source(err, "Falied to read Prisma schema."))?;
+        self.with_connector_for_schema(&schema, config_dir, f).await
+    }
+
+    pub async fn with_connector_for_schema<O: Send + 'static>(
         &self,
         schemas: Vec<(String, SourceFile)>,
         config_dir: Option<&Path>,
@@ -135,7 +143,11 @@ impl EngineState {
         response_receiver.await.expect("receiver boomed")
     }
 
-    async fn with_connector_for_url<O: Send + 'static>(&self, url: String, f: ConnectorRequest<O>) -> CoreResult<O> {
+    pub async fn with_connector_for_url<O: Send + 'static>(
+        &self,
+        url: String,
+        f: ConnectorRequest<O>,
+    ) -> CoreResult<O> {
         let (response_sender, response_receiver) = tokio::sync::oneshot::channel::<CoreResult<O>>();
         let erased: ErasedConnectorRequest = Box::new(move |connector| {
             Box::pin(async move {
