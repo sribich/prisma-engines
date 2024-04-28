@@ -3,6 +3,7 @@
 use psl::{builtin_connectors::*, Datasource, PreviewFeatures};
 use quaint::connector::ExternalConnector;
 use query_core::{executor::InterpretingExecutor, Connector, QueryExecutor};
+#[cfg(feature = "sql")]
 use sql_query_connector::*;
 use std::collections::HashMap;
 use std::env;
@@ -43,12 +44,16 @@ pub async fn load(
             }
 
             match datasource.active_provider {
+                #[cfg(feature = "sqlite")]
                 p if SQLITE.is_provider(p) => native::sqlite(datasource, &url, features).await,
+                #[cfg(feature = "mysql")]
                 p if MYSQL.is_provider(p) => native::mysql(datasource, &url, features).await,
+                #[cfg(feature = "postgresql")]
                 p if POSTGRES.is_provider(p) => native::postgres(datasource, &url, features).await,
+                #[cfg(feature = "mssql")]
                 p if MSSQL.is_provider(p) => native::mssql(datasource, &url, features).await,
+                #[cfg(feature = "postgresql")]
                 p if COCKROACH.is_provider(p) => native::postgres(datasource, &url, features).await,
-
                 #[cfg(feature = "mongodb")]
                 p if MONGODB.is_provider(p) => native::mongodb(datasource, &url, features).await,
 
@@ -76,17 +81,19 @@ mod native {
     use super::*;
     use tracing::trace;
 
+    #[cfg(feature = "sqlite")]
     pub(crate) async fn sqlite(
         source: &Datasource,
         url: &str,
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading SQLite query connector...");
-        let sqlite = Sqlite::from_source(source, url, features).await?;
+        let sqlite = sql_query_connector::Sqlite::from_source(source, url, features).await?;
         trace!("Loaded SQLite query connector.");
         Ok(executor_for(sqlite, false))
     }
 
+    #[cfg(feature = "postgresql")]
     pub(crate) async fn postgres(
         source: &Datasource,
         url: &str,
@@ -94,7 +101,7 @@ mod native {
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading Postgres query connector...");
         let database_str = url;
-        let psql = PostgreSql::from_source(source, url, features).await?;
+        let psql = sql_query_connector::PostgreSql::from_source(source, url, features).await?;
 
         let url = Url::parse(database_str).map_err(|err| {
             query_core::CoreError::ConfigurationError(format!("Error parsing connection string: {err}"))
@@ -109,23 +116,25 @@ mod native {
         Ok(executor_for(psql, force_transactions))
     }
 
+    #[cfg(feature = "mysql")]
     pub(crate) async fn mysql(
         source: &Datasource,
         url: &str,
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
-        let mysql = Mysql::from_source(source, url, features).await?;
+        let mysql = sql_query_connector::Mysql::from_source(source, url, features).await?;
         trace!("Loaded MySQL query connector.");
         Ok(executor_for(mysql, false))
     }
 
+    #[cfg(feature = "mssql")]
     pub(crate) async fn mssql(
         source: &Datasource,
         url: &str,
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading SQL Server query connector...");
-        let mssql = Mssql::from_source(source, url, features).await?;
+        let mssql = sql_query_connector::Mssql::from_source(source, url, features).await?;
         trace!("Loaded SQL Server query connector.");
         Ok(executor_for(mssql, false))
     }

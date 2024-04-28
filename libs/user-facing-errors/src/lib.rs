@@ -1,5 +1,5 @@
 #![deny(unsafe_code, warnings, rust_2018_idioms)]
-#![allow(clippy::derive_partial_eq_without_eq)]
+#![allow(clippy::derive_partial_eq_without_eq, unused_variables, unused_imports)]
 
 mod panic_hook;
 

@@ -1083,34 +1083,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "driver-adapters"
-version = "0.1.0"
-dependencies = [
- "async-trait",
- "expect-test",
- "futures",
- "js-sys",
- "metrics 0.18.1",
- "napi",
- "napi-derive",
- "once_cell",
- "pin-project",
- "quaint",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "serde_repr",
- "tokio",
- "tracing",
- "tracing-core",
- "tsify",
- "uuid",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "wasm-rs-dbg",
-]
-
-[[package]]
 name = "either"
 version = "1.9.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2657,12 +2629,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "napi-build"
-version = "1.2.1"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ebd4419172727423cf30351406c54f6cc1b354a2cfb4f1dba3e6cd07f6d5522b"
-
-[[package]]
 name = "napi-derive"
 version = "2.15.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -2683,11 +2649,8 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8ec514d65fce18a959be55e7f683ac89c6cb850fb59b09e25ab777fd5a4a8d9e"
 dependencies = [
  "convert_case 0.6.0",
- "once_cell",
  "proc-macro2",
  "quote",
- "regex",
- "semver 1.0.18",
  "syn 2.0.48",
 ]
 
@@ -3346,15 +3309,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "prisma-schema-build"
-version = "0.1.0"
-dependencies = [
- "prisma-fmt",
- "wasm-bindgen",
- "wasm-logger",
-]
-
-[[package]]
 name = "prisma-value"
 version = "0.1.0"
 dependencies = [
@@ -3768,40 +3722,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "query-engine-node-api"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "connection-string",
- "driver-adapters",
- "futures",
- "napi",
- "napi-build",
- "napi-derive",
- "opentelemetry",
- "psl",
- "quaint",
- "query-connector",
- "query-core",
- "query-engine-common",
- "query-engine-metrics",
- "query-structure",
- "request-handlers",
- "serde",
- "serde_json",
- "sql-query-connector",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-futures",
- "tracing-opentelemetry",
- "tracing-subscriber",
- "url",
- "user-facing-errors",
-]
-
-[[package]]
 name = "query-engine-tests"
 version = "0.1.0"
 dependencies = [
@@ -3827,42 +3747,6 @@ dependencies = [
  "tracing-futures",
  "user-facing-errors",
  "uuid",
-]
-
-[[package]]
-name = "query-engine-wasm"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "connection-string",
- "driver-adapters",
- "futures",
- "js-sys",
- "opentelemetry",
- "psl",
- "quaint",
- "query-connector",
- "query-core",
- "query-engine-common",
- "query-structure",
- "request-handlers",
- "serde",
- "serde-wasm-bindgen",
- "serde_json",
- "sql-query-connector",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-futures",
- "tracing-opentelemetry",
- "tracing-subscriber",
- "tsify",
- "url",
- "user-facing-errors",
- "wasm-bindgen",
- "wasm-bindgen-futures",
- "wasm-rs-dbg",
 ]
 
 [[package]]
@@ -4653,17 +4537,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "32ac8da02677876d532745a130fc9d8e6edfa81a269b107c5b00829b91d8eb3c"
 dependencies = [
  "serde_derive",
-]
-
-[[package]]
-name = "serde-wasm-bindgen"
-version = "0.5.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f3b143e2833c57ab9ad3ea280d21fd34e285a42837aeb0ee301f4f41890fa00e"
-dependencies = [
- "js-sys",
- "serde",
- "wasm-bindgen",
 ]
 
 [[package]]
@@ -6164,26 +6037,6 @@ name = "wasm-bindgen-shared"
 version = "0.2.89"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "7ab9b36309365056cd639da3134bf87fa8f3d86008abf99e612384a6eecd459f"
-
-[[package]]
-name = "wasm-logger"
-version = "0.2.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "074649a66bb306c8f2068c9016395fa65d8e08d2affcbf95acf3c24c3ab19718"
-dependencies = [
- "log",
- "wasm-bindgen",
- "web-sys",
-]
-
-[[package]]
-name = "wasm-rs-dbg"
-version = "0.1.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "61e5fe4ac478ca5cf1db842029f41a5881da39e70320deb0006912f226ea63f4"
-dependencies = [
- "web-sys",
-]
 
 [[package]]
 name = "web-sys"

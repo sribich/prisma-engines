@@ -5,9 +5,13 @@ mod transaction;
 
 #[cfg(not(target_arch = "wasm32"))]
 pub(crate) mod native {
+    #[cfg(feature = "mssql")]
     pub(crate) mod mssql;
+    #[cfg(feature = "mysql")]
     pub(crate) mod mysql;
+    #[cfg(feature = "postgresql")]
     pub(crate) mod postgresql;
+    #[cfg(feature = "sqlite")]
     pub(crate) mod sqlite;
 }
 
@@ -19,8 +23,14 @@ use connector_interface::{error::ConnectorError, Connector};
 #[cfg(feature = "driver-adapters")]
 pub use js::*;
 
-#[cfg(not(target_arch = "wasm32"))]
-pub use native::{mssql::*, mysql::*, postgresql::*, sqlite::*};
+#[cfg(all(feature = "mssql", not(target_arch = "wasm32")))]
+pub use native::mssql::*;
+#[cfg(all(feature = "mysql", not(target_arch = "wasm32")))]
+pub use native::mysql::*;
+#[cfg(all(feature = "postgresql", not(target_arch = "wasm32")))]
+pub use native::postgresql::*;
+#[cfg(all(feature = "sqlite", not(target_arch = "wasm32")))]
+pub use native::sqlite::*;
 
 #[async_trait]
 pub trait FromSource {

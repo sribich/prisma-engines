@@ -16,3 +16,7 @@ quaint = { path = "../../quaint", default-features = false, optional = true }
 [features]
 default = []
 sql = ["quaint"]
+mysql = ["quaint/mysql"]
+sqlite = ["quaint/sqlite"]
+postgresql = ["quaint/postgresql"]
+mssql = ["quaint/mssql"]

@@ -39,10 +39,10 @@ mysql = ["sql", "sql-query-connector/mysql", "psl/mysql"]
 sqlite = ["sql", "sql-query-connector/sqlite", "psl/sqlite"]
 driver-adapters = ["sql-query-connector/driver-adapters"]
 native = [
-    "mongodb",
-    "sql",
+    # "mongodb",
+    # "sql",
     "graphql-protocol",
-    "psl/all",
+    # "psl/all",
     "sql-query-connector/native_all",
     "query-core/metrics",
 ]

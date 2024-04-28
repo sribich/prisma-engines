@@ -17,4 +17,4 @@ name = "schema_builder_bench"
 harness = false
 
 [features]
-all_connectors = ["psl/all"]
+all_connectors = ["psl/all_test"]

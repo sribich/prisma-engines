@@ -27,7 +27,13 @@ pub use database::FromSource;
 pub use database::Js;
 pub use error::SqlError;
 
-#[cfg(not(target_arch = "wasm32"))]
-pub use database::{Mssql, Mysql, PostgreSql, Sqlite};
+#[cfg(all(feature = "mssql", not(target_arch = "wasm32")))]
+pub use database::Mssql;
+#[cfg(all(feature = "mysql", not(target_arch = "wasm32")))]
+pub use database::Mysql;
+#[cfg(all(feature = "postgresql", not(target_arch = "wasm32")))]
+pub use database::PostgreSql;
+#[cfg(all(feature = "sqlite", not(target_arch = "wasm32")))]
+pub use database::Sqlite;
 
 type Result<T> = std::result::Result<T, error::SqlError>;
