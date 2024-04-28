@@ -308,6 +308,7 @@ impl Builder {
     #[cfg(feature = "postgresql-native")]
     pub fn set_postgres_flavour(&mut self, flavour: crate::connector::PostgresFlavour) {
         use crate::connector::NativeConnectionInfo;
+
         if let ConnectionInfo::Native(NativeConnectionInfo::Postgres(ref mut url)) = self.connection_info {
             url.set_flavour(flavour);
         }

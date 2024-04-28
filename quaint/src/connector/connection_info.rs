@@ -280,9 +280,13 @@ impl ConnectionInfo {
 
     pub fn version(&self) -> Option<&str> {
         match self {
-            #[cfg(feature = "mysql-native")]
-            ConnectionInfo::Native(NativeConnectionInfo::Mysql(m)) => m.version(),
-            _ => None,
+            #[cfg(not(target_arch = "wasm32"))]
+            ConnectionInfo::Native(nt) => match nt {
+                #[cfg(feature = "mysql-native")]
+                NativeConnectionInfo::Mysql(m) => m.version(),
+                _ => None,
+            },
+            ConnectionInfo::External(_) => None,
         }
     }
 }

@@ -35,10 +35,10 @@ macro_rules! trace {
 #[cfg(not(target_arch = "wasm32"))]
 macro_rules! trace {
     (target: $target:expr, $($arg:tt)+) => {
-        tracing::log::trace!(target: $target, $($arg)+);
+        tracing::trace!(target: $target, $($arg)+);
     };
     ($($arg:tt)+) => {
-        tracing::log::trace!($($arg)+);
+        tracing::trace!($($arg)+);
     };
 }
 

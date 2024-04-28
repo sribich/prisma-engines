@@ -12,10 +12,8 @@ use crate::getters::Getter;
 use enumflags2::BitFlags;
 use indexmap::IndexMap;
 use indoc::indoc;
-use psl::{
-    builtin_connectors::{CockroachType, PostgresType},
-    datamodel_connector::NativeTypeInstance,
-};
+use psl::builtin_connectors::CockroachType;
+use psl::{builtin_connectors::PostgresType, datamodel_connector::NativeTypeInstance};
 use quaint::{connector::ResultRow, prelude::Queryable, Value};
 use regex::Regex;
 use std::{

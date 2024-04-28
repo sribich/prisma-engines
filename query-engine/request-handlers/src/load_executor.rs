@@ -3,6 +3,7 @@
 use psl::{builtin_connectors::*, Datasource, PreviewFeatures};
 use quaint::connector::ExternalConnector;
 use query_core::{executor::InterpretingExecutor, Connector, QueryExecutor};
+#[cfg(feature = "sql")]
 use sql_query_connector::*;
 use std::collections::HashMap;
 use std::env;
@@ -87,7 +88,7 @@ mod native {
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading SQLite query connector...");
-        let sqlite = Sqlite::from_source(source, url, features).await?;
+        let sqlite = sql_query_connector::Sqlite::from_source(source, url, features).await?;
         trace!("Loaded SQLite query connector.");
         Ok(executor_for(sqlite, false))
     }
@@ -100,7 +101,7 @@ mod native {
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading Postgres query connector...");
         let database_str = url;
-        let psql = PostgreSql::from_source(source, url, features).await?;
+        let psql = sql_query_connector::PostgreSql::from_source(source, url, features).await?;
 
         let url = Url::parse(database_str).map_err(|err| {
             query_core::CoreError::ConfigurationError(format!("Error parsing connection string: {err}"))
@@ -121,7 +122,7 @@ mod native {
         url: &str,
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
-        let mysql = Mysql::from_source(source, url, features).await?;
+        let mysql = sql_query_connector::Mysql::from_source(source, url, features).await?;
         trace!("Loaded MySQL query connector.");
         Ok(executor_for(mysql, false))
     }
@@ -133,7 +134,7 @@ mod native {
         features: PreviewFeatures,
     ) -> query_core::Result<Box<dyn QueryExecutor + Send + Sync>> {
         trace!("Loading SQL Server query connector...");
-        let mssql = Mssql::from_source(source, url, features).await?;
+        let mssql = sql_query_connector::Mssql::from_source(source, url, features).await?;
         trace!("Loaded SQL Server query connector.");
         Ok(executor_for(mssql, false))
     }

@@ -29,11 +29,14 @@ docs = []
 expose-drivers = []
 
 all-native = [
-  "postgresql-native",
-  "mysql-native",
-  "mssql-native",
-  "sqlite-native",
+  # "postgresql-native",
+  # "mysql-native",
+  # "mssql-native",
+  # "sqlite-native",
 ]
+
+native = [] #"postgresql-native", "mysql-native", "mssql-native", "sqlite-native"
+all = ["native", "pooled"]
 
 vendored-openssl = [
   "postgres-native-tls/vendored-openssl",

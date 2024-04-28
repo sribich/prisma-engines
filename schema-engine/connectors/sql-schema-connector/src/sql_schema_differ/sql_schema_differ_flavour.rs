@@ -4,10 +4,13 @@ use sql_schema_describer::{
     walkers::{IndexWalker, TableColumnWalker, TableWalker},
     TableColumnId,
 };
-
+#[cfg(feature = "mssql")]
 mod mssql;
+#[cfg(feature = "mysql")]
 mod mysql;
+#[cfg(feature = "postgresql")]
 mod postgres;
+#[cfg(feature = "sqlite")]
 mod sqlite;
 
 /// Trait to specialize SQL schema diffing (resulting in migration steps) by SQL backend.
