@@ -2,6 +2,7 @@
 edition = "2021"
 name = "sql-query-connector"
 version = "0.1.0"
+license = "Apache-2.0"
 
 [features]
 postgresql = ["relation_joins", "quaint/postgresql", "psl/postgresql", "quaint/postgresql-native"]
