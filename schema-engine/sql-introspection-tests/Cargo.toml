@@ -10,7 +10,7 @@ sql-schema-describer = { path = "../sql-schema-describer" }
 psl = { workspace = true, features = ["all_test"] }
 test-macros = { path = "../../libs/test-macros" }
 user-facing-errors = { path = "../../libs/user-facing-errors", features = [
-    "all-native",
+
 ] }
 test-setup = { path = "../../libs/test-setup" }
 itertools.workspace = true

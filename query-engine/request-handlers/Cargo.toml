@@ -64,14 +64,14 @@ mssql-native = [
 driver-adapters = ["sql-query-connector/driver-adapters"]
 
 all = [
-    "mongodb",
-    "mysql-native",
-    "sqlite-native",
-    "postgresql-native",
-    "cockroachdb-native",
-    "mssql-native",
+    # "mongodb",
+    # "mysql-native",
+    # "sqlite-native",
+    # "postgresql-native",
+    # "cockroachdb-native",
+    # "mssql-native",
     "graphql-protocol",
-    "psl/all",
+    # "psl/all",
     "query-core/metrics",
 ]
 

@@ -10,10 +10,10 @@ sql = ["sql-connector", "sql-connector/native_all"]
 
 vendored-openssl = ["sql-connector/vendored-openssl"]
 
-mysql = ["sql-connector/mysql", "user-facing-errors/mysql", "psl/mysql"]
-sqlite = ["sql-connector/sqlite", "user-facing-errors/sqlite", "psl/sqlite"]
-mssql = ["sql-connector/mssql", "user-facing-errors/mssql", "psl/mssql"]
-postgresql = ["sql-connector/postgresql", "user-facing-errors/postgresql", "psl/postgresql"]
+mysql = ["sql-connector/mysql", "user-facing-errors/mysql-native", "psl/mysql"]
+sqlite = ["sql-connector/sqlite", "user-facing-errors/sqlite-native", "psl/sqlite"]
+mssql = ["sql-connector/mssql", "user-facing-errors/mssql-native", "psl/mssql"]
+postgresql = ["sql-connector/postgresql", "user-facing-errors/postgresql-native", "psl/postgresql"]
 
 [dependencies]
 tokio.workspace = true

@@ -71,7 +71,15 @@ type ErasedConnectorRequest = Box<
 impl EngineState {
     pub fn new(initial_datamodel: Option<Vec<(String, SourceFile)>>, host: Option<Arc<dyn ConnectorHost>>) -> Self {
         EngineState {
-            initial_datamodel: initial_datamodels.as_deref().map(psl::validate_multi_file),
+            initial_datamodel: initial_datamodel.as_deref().map(psl::validate_multi_file),
+            host: host.unwrap_or_else(|| Arc::new(schema_connector::EmptyHost)),
+            connectors: Default::default(),
+        }
+    }
+
+    pub fn new_single(initial_datamodel: Option<SourceFile>, host: Option<Arc<dyn ConnectorHost>>) -> Self {
+        EngineState {
+            initial_datamodel: initial_datamodel.map(psl::validate),
             host: host.unwrap_or_else(|| Arc::new(schema_connector::EmptyHost)),
             connectors: Default::default(),
         }
@@ -95,7 +103,14 @@ impl EngineState {
         let config_dir = std::path::Path::new(path).parent();
         let schema = std::fs::read_to_string(path)
             .map_err(|err| ConnectorError::from_source(err, "Falied to read Prisma schema."))?;
-        self.with_connector_for_schema(&schema, config_dir, f).await
+
+        // let schemas = schema
+        //     .db
+        //     .iter_file_sources()
+        //     .map(|(name, content)| (name.to_string(), content.clone()))
+        //     .collect::<Vec<_>>();
+        self.with_connector_for_schema(vec![(path.to_owned(), schema.into())], config_dir, f)
+            .await
     }
 
     pub async fn with_connector_for_schema<O: Send + 'static>(

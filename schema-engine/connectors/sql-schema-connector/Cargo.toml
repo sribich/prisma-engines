@@ -8,25 +8,25 @@ license = "Apache-2.0"
 vendored-openssl = ["quaint/vendored-openssl"]
 mysql = [
   "quaint/mysql",
-  "user-facing-errors/mysql",
+  "user-facing-errors/mysql-native",
   "sql-ddl/mysql",
   "sql-schema-describer/mysql",
 ]
 sqlite = [
   "quaint/sqlite",
-  "user-facing-errors/sqlite",
+  "user-facing-errors/sqlite-native",
   "sql-ddl/sqlite",
   "sql-schema-describer/sqlite",
 ]
 mssql = [
   "quaint/mssql",
-  "user-facing-errors/mssql",
+  "user-facing-errors/mssql-native",
   "sql-ddl/mssql",
   "sql-schema-describer/mssql",
 ]
 postgresql = [
   "quaint/postgresql",
-  "user-facing-errors/postgresql",
+  "user-facing-errors/postgresql-native",
   "sql-ddl/postgresql",
   "sql-schema-describer/postgresql",
 ]
@@ -52,7 +52,6 @@ datamodel-renderer = { path = "../../datamodel-renderer" }
 sql-ddl = { path = "../../../libs/sql-ddl" }
 user-facing-errors = { path = "../../../libs/user-facing-errors", features = [
     "sql",
-    "all-native",
 ] }
 
 chrono.workspace = true

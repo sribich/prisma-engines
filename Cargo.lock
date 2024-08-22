@@ -464,25 +464,6 @@ source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "37b2a672a2cb129a2e41c10b1224bb368f9f37a2b16b612598138befd7b37eb5"
 
 [[package]]
-name = "cbindgen"
-version = "0.24.5"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "4b922faaf31122819ec80c4047cc684c6979a087366c069611e33649bf98e18d"
-dependencies = [
- "clap 3.2.25",
- "heck 0.4.1",
- "indexmap 1.9.3",
- "log",
- "proc-macro2",
- "quote",
- "serde",
- "serde_json",
- "syn 1.0.109",
- "tempfile",
- "toml",
-]
-
-[[package]]
 name = "cc"
 version = "1.0.83"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -586,12 +567,9 @@ version = "3.2.25"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "4ea181bf566f71cb9a5d17a59e1871af638180a18fb0035c92ae62b705207123"
 dependencies = [
- "atty",
  "bitflags 1.3.2",
  "clap_lex",
  "indexmap 1.9.3",
- "strsim 0.10.0",
- "termcolor",
  "textwrap 0.16.0",
 ]
 
@@ -1625,15 +1603,6 @@ checksum = "eabb4a44450da02c90444cf74558da904edde8fb4e9035a9a6a4e15445af0bd7"
 
 [[package]]
 name = "hashbrown"
-version = "0.11.2"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ab5ef0d4909ef3724cc8cce6ccc8572c5c817592e9285f5464f8e86f8bd3726e"
-dependencies = [
- "ahash 0.7.8",
-]
-
-[[package]]
-name = "hashbrown"
 version = "0.12.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "8a9ee70c43aaf417c914396645a0fa852624801b24ebb7ae78fe8272889ac888"
@@ -1803,7 +1772,7 @@ dependencies = [
  "futures-channel",
  "futures-core",
  "futures-util",
- "h2 0.3.24",
+ "h2 0.3.26",
  "http 0.2.9",
  "http-body 0.4.5",
  "httparse",
@@ -2379,8 +2348,8 @@ version = "0.22.3"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "2be3cbd384d4e955b231c895ce10685e3d8260c5ccffae898c96c723b0772835"
 dependencies = [
- "ahash 0.7.8",
- "metrics-macros",
+ "ahash 0.8.11",
+ "portable-atomic",
 ]
 
 [[package]]
@@ -3769,41 +3738,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "query-engine-c-abi"
-version = "0.1.0"
-dependencies = [
- "anyhow",
- "async-trait",
- "cbindgen",
- "chrono",
- "connection-string",
- "futures",
- "indoc 2.0.3",
- "once_cell",
- "opentelemetry",
- "psl",
- "quaint",
- "query-connector",
- "query-core",
- "query-engine-common",
- "query-structure",
- "request-handlers",
- "rusqlite",
- "serde",
- "serde_json",
- "sql-query-connector",
- "thiserror",
- "tokio",
- "tracing",
- "tracing-futures",
- "tracing-opentelemetry",
- "tracing-subscriber",
- "url",
- "user-facing-errors",
- "uuid",
-]
-
-[[package]]
 name = "query-engine-common"
 version = "0.1.0"
 dependencies = [
@@ -4221,7 +4155,7 @@ dependencies = [
  "encoding_rs",
  "futures-core",
  "futures-util",
- "h2 0.3.24",
+ "h2 0.3.26",
  "http 0.2.9",
  "http-body 0.4.5",
  "hyper 0.14.27",
@@ -5241,15 +5175,6 @@ dependencies = [
 ]
 
 [[package]]
-name = "termcolor"
-version = "1.4.0"
-source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "ff1bc3d3f05aff0403e8ac0d92ced918ec05b666a43f83297ccef5bea8a3d449"
-dependencies = [
- "winapi-util",
-]
-
-[[package]]
 name = "test-cli"
 version = "0.1.0"
 dependencies = [
@@ -5580,7 +5505,7 @@ dependencies = [
  "bytes",
  "futures-core",
  "futures-util",
- "h2 0.3.24",
+ "h2 0.3.26",
  "http 0.2.9",
  "http-body 0.4.5",
  "hyper 0.14.27",

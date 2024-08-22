@@ -88,7 +88,7 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                     database_name: format!("{}.{}", url.dbname(), url.schema()),
                 }))
             }
-            #[cfg(feature = "mysql")]
+            #[cfg(feature = "mysql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mysql(url)) => {
                 Some(KnownError::new(common::DatabaseAccessDenied {
                     database_user: url.username().into_owned(),
@@ -130,14 +130,8 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                     database_host: url.host().to_owned(),
                 }))
             }
-            #[cfg(feature = "mysql")]
+            #[cfg(feature = "mysql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mysql(url)) => {
-                Some(KnownError::new(common::IncorrectDatabaseCredentials {
-                    database_user: format!("{user}"),
-                    database_host: url.host().to_owned(),
-                }))
-            }
-            ConnectionInfo::Native(NativeConnectionInfo::Mssql(url)) => {
                 Some(KnownError::new(common::IncorrectDatabaseCredentials {
                     database_user: format!("{user}"),
                     database_host: url.host().to_owned(),
@@ -162,7 +156,7 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                         .into(),
                 }))
             }
-            #[cfg(feature = "mysql")]
+            #[cfg(feature = "mysql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mysql(url)) => {
                 let time = match url.socket_timeout() {
                     Some(dur) => format!("{}s", dur.as_secs()),
@@ -175,7 +169,7 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                         .into(),
                 }))
             }
-            #[cfg(feature = "mssql")]
+            #[cfg(feature = "mssql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mssql(url)) => {
                 let time = match url.socket_timeout() {
                     Some(dur) => format!("{}s", dur.as_secs()),
@@ -210,7 +204,7 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                 kind: common::ModelKind::Table,
             })),
 
-            #[cfg(feature = "postgresql-native")]
+            #[cfg(feature = "mysql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mysql(_)) => Some(KnownError::new(common::InvalidModel {
                 model: format!("{model}"),
                 kind: common::ModelKind::Table,
@@ -222,7 +216,7 @@ pub fn render_quaint_error(kind: &ErrorKind, connection_info: &ConnectionInfo) -
                     kind: common::ModelKind::Table,
                 }))
             }
-            #[cfg(feature = "mssql")]
+            #[cfg(feature = "mssql-native")]
             ConnectionInfo::Native(NativeConnectionInfo::Mssql(_)) => Some(KnownError::new(common::InvalidModel {
                 model: format!("{model}"),
                 kind: common::ModelKind::Table,
