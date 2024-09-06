@@ -152,12 +152,12 @@ mod manager;
 
 pub use manager::*;
 
-#[cfg(native)]
-use crate::error::NativeErrorKind;
+// #[cfg(native)]
+// use crate::error::NativeErrorKind;
 
 use crate::{
     connector::ConnectionInfo,
-    error::{Error, ErrorKind},
+    error::{Error, ErrorKind, NativeErrorKind},
 };
 use mobc::Pool;
 use std::{sync::Arc, time::Duration};

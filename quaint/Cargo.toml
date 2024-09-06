@@ -29,10 +29,10 @@ docs = []
 expose-drivers = []
 
 all-native = [
-  # "postgresql-native",
-  # "mysql-native",
-  # "mssql-native",
-  # "sqlite-native",
+  "postgresql-native",
+  "mysql-native",
+  "mssql-native",
+  "sqlite-native",
 ]
 
 native = [] #"postgresql-native", "mysql-native", "mssql-native", "sqlite-native"
@@ -124,7 +124,7 @@ optional = true
 branch = "vendored-openssl"
 
 [dependencies.rusqlite]
-version = "0.29"
+version = "0.30"
 features = ["chrono", "column_decltype"]
 optional = true
 
